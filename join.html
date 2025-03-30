@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us - Readers' Haven</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E0F2F1;
+            color: #004D40;
+            border: 2px solid #00897B;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        header {
+            background: #00897B;
+            color: #E0F2F1;
+            padding: 10px 25px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+            height: 85px;
+            border-bottom: 2px solid #4DB6AC;
+            gap: 20px;
+        }
+        header h1 {
+            margin: 0;
+            flex-shrink: 0;
+        }
+        header h1 a {
+            color: #E0F2F1;
+            text-decoration: none;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(77, 182, 172, 0.1);
+            border-radius: 10px;
+            transition: 0.3s;
+            white-space: nowrap;
+            height: 38px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        header h1 a:hover {
+            background: rgba(77, 182, 172, 0.2);
+            transform: translateY(-2px);
+        }
+        .search-container {
+            position: relative;
+            width: 300px;
+            margin: 0 auto;
+            flex-shrink: 0;
+            order: 2;
+        }
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0;
+            flex-shrink: 0;
+            order: 3;
+            margin-left: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            margin: 0;
+            flex-wrap: nowrap;
+            background: rgba(77, 182, 172, 0.1);
+            padding: 4px;
+            border-radius: 8px;
+        }
+        nav ul li a, .dropbtn {
+            text-decoration: none;
+            color: #E0F2F1;
+            padding: 8px 12px;
+            background: transparent;
+            border-radius: 6px;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: 0.95em;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            min-width: 90px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+        nav ul li a::before, .dropbtn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #4DB6AC;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .dropbtn:hover, nav ul li a:hover {
+            color: #4DB6AC;
+            border-color: #4DB6AC;
+        }
+        nav ul li a:hover::before, .dropbtn:hover::before {
+            width: 80%;
+        }
+        .dropdown {
+            position: relative;
+            margin-right: 2px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .dropbtn {
+            background: rgba(77, 182, 172, 0.15);
+            border: 1px solid rgba(77, 182, 172, 0.2);
+            padding: 8px;
+            position: relative;
+            cursor: pointer;
+            min-width: auto;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dropbtn:hover {
+            background: rgba(77, 182, 172, 0.2);
+            border-color: #4DB6AC;
+        }
+        .dropdown-toggle {
+            font-size: 0.7em;
+            color: #4DB6AC;
+            transition: transform 0.3s ease;
+        }
+        .dropbtn:hover .dropdown-toggle {
+            transform: rotate(180deg);
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #00897B;
+            min-width: 200px;
+            padding: 8px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            flex-direction: column;
+            gap: 6px;
+            top: calc(100% + 5px);
+            left: 0;
+            transform: translateX(0);
+            margin-top: 0;
+            z-index: 1000;
+            border: 1px solid #4DB6AC;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dropdown-content.show {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-content a {
+            color: #E0F2F1;
+            padding: 10px 12px;
+            display: block;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 6px;
+            text-align: left;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            font-size: 0.95em;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+        .dropdown-content a:hover {
+            color: #4DB6AC;
+            border-color: #4DB6AC;
+            transform: translateX(5px);
+            background: rgba(77, 182, 172, 0.05);
+        }
+        #search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #4DB6AC;
+            border-radius: 25px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            background: rgba(77, 182, 172, 0.1);
+            color: #E0F2F1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        #search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        #search-bar:focus {
+            outline: none;
+            border-color: #4DB6AC;
+            box-shadow: 0 0 0 4px rgba(77, 182, 172, 0.2);
+            background: rgba(77, 182, 172, 0.15);
+            transform: translateY(-2px);
+        }
+        #search-bar:hover {
+            background: rgba(77, 182, 172, 0.15);
+            transform: translateY(-2px);
+        }
+        main {
+            margin-top: 85px;
+            text-align: center;
+            padding: 20px;
+            min-height: calc(100vh - 85px - 60px);
+            width: calc(100% - 40px);
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        .content-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #E0F2F1;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            border: 2px solid #00897B;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .content-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid #00897B;
+            border-radius: 16px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #00897B;
+            border-radius: 8px;
+            background: rgba(77, 182, 172, 0.05);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .welcome-section h2 {
+            font-size: 3.2em;
+            color: #00897B;
+            margin-bottom: 20px;
+            padding: 15px 0;
+            border-bottom: 3px solid #4DB6AC;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+        .welcome-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #4DB6AC;
+            border-radius: 3px;
+        }
+        .welcome-section p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #004D40;
+            max-width: 100%;
+            margin: 0 auto 20px;
+            padding: 10px;
+            border-left: 3px solid #4DB6AC;
+            background: #E0F2F1;
+            border-radius: 0 8px 8px 0;
+        }
+        .join-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(77, 182, 172, 0.05);
+            border-radius: 8px;
+            border: 1px solid #00897B;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #00897B;
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #00897B;
+            border-radius: 4px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: #E0F2F1;
+            color: #004D40;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4DB6AC;
+            box-shadow: 0 0 0 4px rgba(77, 182, 172, 0.2);
+        }
+        .submit-btn {
+            background: #00897B;
+            color: #E0F2F1;
+            padding: 12px 24px;
+            border: 2px solid #00897B;
+            border-radius: 4px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+            box-sizing: border-box;
+        }
+        .submit-btn:hover {
+            background: #4DB6AC;
+            border-color: #4DB6AC;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background: #00897B;
+            color: #E0F2F1;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            width: 100%;
+            font-size: 0.9em;
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            border-top: 2px solid #4DB6AC;
+        }
+        footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        footer p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 8px;
+            }
+            .search-container {
+                width: 100%;
+                margin: 8px 0;
+            }
+            #search-bar {
+                width: 100%;
+            }
+            .content-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            .welcome-section h2 {
+                font-size: 2em;
+            }
+            .join-form {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="home.html">The Readers' Hub</a></h1>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Articles</a>
+                    <button class="dropbtn">
+                        <span class="dropdown-toggle">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="science.html">Science</a>
+                        <a href="knowledge.html">Knowledge</a>
+                        <a href="#">History</a>
+                        <a href="#">Geography</a>
+                        <a href="#">Technology</a>
+                        <a href="#">Fiction</a>
+                        <a href="#">Science Fiction</a>
+                    </div>
+                </li>
+                <li><a href="poems.html">Poems</a></li>
+                <li><a href="stories.html">Stories</a></li>
+                <li><a href="join.html">Join Us</a></li>
+            </ul>
+        </nav>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search for content...">
+        </div>
+    </header>
+    
+    <main>
+        <div class="content-container">
+            <div class="welcome-section">
+                <h2>Join Our Community</h2>
+                <p>Become a part of our growing community of readers and writers. Share your thoughts, connect with others, and contribute to our platform.</p>
+            </div>
+            
+            <div class="join-form">
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSckhSz1VRvufnrJ1Y-jsU_otrAmQO9JR4A_pYdU6dQggujnKg/viewform?usp=header', '_blank')" class="submit-btn">Fill Registration Form</button>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Credits: Shrinivas Deshpande, Trigya Agarwal</p>
+        <p>Contact: thereadershub303@gmail.com | +7499799475</p>
+    </footer>
+    <script>
+        // Show footer when scrolling to bottom
+        window.addEventListener('scroll', function() {
+            const footer = document.querySelector('footer');
+            const scrollPosition = window.scrollY + window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            if (scrollPosition >= documentHeight - 100) {
+                footer.classList.add('visible');
+            } else {
+                footer.classList.remove('visible');
+            }
+        });
+
+        // Dropdown toggle functionality
+        const dropbtn = document.querySelector('.dropbtn');
+        const dropdownContent = document.querySelector('.dropdown-content');
+        
+        dropbtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownContent.contains(e.target) && !dropbtn.contains(e.target)) {
+                dropdownContent.classList.remove('show');
+            }
+        });
+
+        // Search functionality
+        document.getElementById('search-bar').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase().trim();
+                if (searchTerm === 'science') {
+                    window.location.href = 'science.html';
+                } else if (searchTerm === 'knowledge') {
+                    window.location.href = 'knowledge.html';
+                } else if (searchTerm === 'home') {
+                    window.location.href = 'home.html';
+                } else {
+                    alert('No results found for: ' + searchTerm);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
